@@ -3,7 +3,7 @@ package negate;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub poop
+		// TODO Auto-generated method stub
 
 	}
 
