@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="resources/stanford-parser-full-2016-10-31/stanford-parser-3.7.0-models.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/stanford-parser-full-2016-10-31/stanford-parser.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

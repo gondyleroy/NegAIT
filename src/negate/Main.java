@@ -3,7 +3,8 @@ package negate;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		TextRead foo = new TextRead(System.getProperty("user.dir") + "/resources/documents/AagenaesSyndrome.txt");
 
 	}
 

@@ -1,5 +1,10 @@
 package negate;
 
 public class Sentence {
-// this is a comment
+	
+	public Sentence(String rawSentence) { 
+		
+		System.out.println(rawSentence);	
+		
+	}
 }
