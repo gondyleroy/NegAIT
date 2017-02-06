@@ -18,6 +18,11 @@ public class TextRead {
 			// Parse the Document into Sentences using the Stanford Preproccessor Class
 			DocumentPreprocessor dp = new DocumentPreprocessor(filepath);
 			
+			//
+			// Here we add all the Stanford Parer Tools we need -- NER?
+			// To preserve to fidelity of the original file
+			//
+			
 			
 			// Transfer the Preprocessor to an Array List of Array Lists
 			for (List<HasWord> hwSentence : dp) {
