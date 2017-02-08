@@ -19,3 +19,4 @@ This application is a distributed version of the NegAIT parser.
 		3. Invokes the Sentence class to check whether tokens are in these lists.
 		4. Writes out the annotated text to file.
 
+Thats all it does.
