@@ -22,20 +22,23 @@ public class Sentence {
 		    	
 		    	if (discardMap.containsKey(token)) {
 		    		
+		    		annotatedSent.add(candidate);
 		    		continue;
 		    		
 		    	} else { 
 		    		
 		    		candidate += "\tMorphNegation";
+		    		annotatedSent.add(candidate);
 		    	}
 		    	
-		    } else { 
-		    	
+		    } else {
+		    	annotatedSent.add(candidate);
 		    	continue;
 		    
 		    }
+		    
 		}
-		
+
 		return annotatedSent;
 		
 	}
