@@ -1,10 +1,14 @@
 package negate;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,94 +21,251 @@ import edu.stanford.nlp.util.*;
 
 public class TextRead {
 	
-	private List<ArrayList<String>> documentList = new ArrayList<ArrayList<String>>();	
+	// Make a List of Array lists to save all sentences in the document
+	static List<ArrayList<String>> documentList = new ArrayList<ArrayList<String>>();
 	
-	
-	public TextRead(String filepath) { 
+	public void parse (String filepath) throws IOException { 
 		
-		// Make a List of Array lists to save all sentences in the document
+		System.out.println("Parsing the file...");
+		
+		BufferedReader inBr;
 		String rawLine = null;
-		BufferedReader br = null;
-		FileReader fr = null;
+		FileInputStream inStream = null;
 		
-		try {
+		try { 
 			
-			// File Input Vars
-			fr = new FileReader(filepath);
-			br = new BufferedReader(fr);
+			// read in file
+			inStream = new FileInputStream(filepath);
+			inBr = new BufferedReader(new InputStreamReader(inStream));
 			
 			// creates a StanfordCoreNLP object, with POS tagging, parsing
 			Properties props = new Properties();
 			props.setProperty("annotators", "tokenize, ssplit, pos, parse");
 			StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 			
-			// Read in File Buffer
-			br = new BufferedReader(new FileReader(filepath));
 
 			// Parse lines and annotate using Core NLP
-			while ((rawLine = br.readLine()) != null) {
+			while ((rawLine = inBr.readLine()) != null) {
 				
 				Annotation antdLine = new Annotation(rawLine);
-			    // run all the selected Annotators on this text
-			    pipeline.annotate(antdLine);
+				
+				// run all the selected Annotators on this text
+				pipeline.annotate(antdLine);
 			    
-			    List<CoreMap> coreSents = antdLine.get(CoreAnnotations.SentencesAnnotation.class);
+				List<CoreMap> coreSents = antdLine.get(CoreAnnotations.SentencesAnnotation.class);
 			    
-			    for(CoreMap coreSent : coreSents) {
+				for(CoreMap coreSent : coreSents) {
 			    	
 					// Array list of strings for each sentence
 					ArrayList<String> sentenceArray = new ArrayList<String>();
 
-			    	for (CoreLabel coreToken: coreSent.get(TokensAnnotation.class)) {
+					for (CoreLabel coreToken: coreSent.get(TokensAnnotation.class)) {
 			    		
-			    		// get the text of the token
-			    		String word = coreToken.get(TextAnnotation.class);
+						// get the text of the token
+						String word = coreToken.get(TextAnnotation.class);
 			    		
-			    		// get pos tag of the token
-			    		String pos = coreToken.get(PartOfSpeechAnnotation.class);
+						// get pos tag of the token
+						String pos = coreToken.get(PartOfSpeechAnnotation.class);
 			    		
-			    		// Add the word and pos
-			    		String token = word + "\t" + pos;
+						// Add the word and pos
+						String token = word + "\t" + pos;
 			    		
-			    		// Add token to Sentence Array List
-			    		sentenceArray.add(token);
-			    	}
+						// Add token to Sentence Array List
+						sentenceArray.add(token);
+					}
 
-			    	// this is the parse tree of the current sentence
-			    	//Tree tree = coreSent.get(TreeAnnotation.class);
-			    	documentList.add(sentenceArray);
-			    }    
+					// this would be the parse tree of the current sentence, but we don't need it?
+					//Tree tree = coreSent.get(TreeAnnotation.class);
+					documentList.add(sentenceArray);
+				}
 			}
 			    
-			System.out.println("Works!");
+		} catch (IOException e) {
+				
+			e.printStackTrace();				
+				
+		} finally {
+				
+			try {
 			
-		} catch (IOException e1) {
+				if (inStream != null)
+					inStream.close();
+					
+		    } catch (IOException ex) {
+
+				ex.printStackTrace();
+			}
 			
-			// Couldn't open the File
-			e1.printStackTrace();
-			System.out.println("Couldn't parse: " + filepath + "!!!");
+		}
+	}
+	
+	// Annotate the Sentences
+	public void annotate(String acceptpath, String discardpath) {
+		
+		// Vars for Accept and Discard map/lists
+		System.out.println("Annotating Negations...");
+		HashMap<String, String> acceptMap = null;
+		List<String> discardList = null;
+		
+		
+		// Subclass to read in the Accept and Discard Lexicons
+		class Lexicon {
+			
+			// Read in the Accept Lexicon (Derived and Underived Forms)
+			public HashMap<String, String> readAccept(String path){
+				
+				HashMap<String, String> lexicon = new HashMap<>();
+				String rawLine = null;
+				FileInputStream stream = null;
+				BufferedReader inBr;
+				
+				try{
+					
+			        stream = new FileInputStream(path);
+					inBr = new BufferedReader(new InputStreamReader(stream));
+						
+						// Parse lines and add to Lexicon Hashmap
+						while ((rawLine = inBr.readLine()) != null) {
+							
+							// Split the Line by , to get the Derived, Underived Pair
+							String[] line = rawLine.split(",");
+							
+							if (line.length == 2){
+								
+								// Add them to Hashmap <derived, underived>
+								lexicon.put(line[0], line[1]);
+								
+							} else {
+								
+								// There are some typos, and this will tell us about them
+								System.out.println("The accept lexicon couldn't parse: " + rawLine  );
+								continue;
+							}
+						}
+
+				} catch (IOException e){
+					
+					e.printStackTrace();
+					
+			    } finally {
+			    	
+			    	try{
+			    		
+			    		if (stream != null)
+			    			stream.close();
+			    		
+			    	} catch (IOException ex){
+			    		
+						ex.printStackTrace();
+			    	}
+			    }
+				return lexicon;
+			}
+			
+			// Read in the Discard list
+			public List<String> readDiscard(String path){
+				
+				List<String> lexicon = new ArrayList<String>();
+				String rawLine = null;
+				FileInputStream stream = null;
+				String derived = null;
+				BufferedReader inBr;
+				
+				try{
+					
+			        stream = new FileInputStream(path);
+					inBr = new BufferedReader(new InputStreamReader(stream));
+						
+						// Parse lines and add to Lexicon List
+						while ((rawLine = inBr.readLine()) != null) {
+							
+							String[] line = rawLine.split(",");
+							
+							derived = line[0].substring(1);
+							lexicon.add(derived);
+							
+							}
+
+				} catch (IOException e){
+					
+					e.printStackTrace();
+					
+			    } finally {
+			    	
+			    	try{
+			    		
+			    		if (stream != null)
+			    			stream.close();
+			    		
+			    	} catch (IOException ex){
+			    		
+						ex.printStackTrace();
+			    	}
+			    }
+				
+				return lexicon;
+			}
+		}
+		
+		// Calling the Lexicons 
+		Lexicon lexs = new Lexicon();
+		acceptMap = lexs.readAccept(acceptpath);
+		discardList = lexs.readDiscard(discardpath);
+		
+		
+		// Read through sentences of Input File and Annotate
+		for (ArrayList<String> s : documentList){
+			Sentence sSent = new Sentence(s);
+			
+			}
+		
+		
+	}	
+	
+	public void xmlwrite(String filepath) {
+		
+		System.out.println("Writing Annotations...");
+		
+		// Convert Annotations to XML and write out
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+		int i = 0;
+		
+		try{
+
+			fw = new FileWriter(filepath);
+			bw = new BufferedWriter(fw);
+			
+
+			for (ArrayList<String> s : documentList){
+				i += 1;
+				bw.write("Sentence " + Integer.toString(i) + ":");
+				bw.write("\n");
+				for (String t : s){
+					bw.write(t);
+					bw.write("\n");
+				}
+				bw.write("\n");
+				bw.write("\n");
+			}
+		
+		} catch (IOException e) {
+			
+			e.printStackTrace();
 			
 		} finally {
 
 			try {
 
-				if (br != null)
-					br.close();
+				if (bw != null)
+					bw.close();
 
-				if (fr != null)
-					fr.close();
+				if (fw != null)
+					fw.close();
 
-			} catch (IOException e2) {
+			} catch (IOException ex) {
 
-				e2.printStackTrace();
-
-			}
-		}
-		
-	for (ArrayList<String> s : documentList){
-		System.out.println("Sentence:");
-		for (String t : s){
-			System.out.println(t);
+				ex.printStackTrace();
 			}
 		}
 	}

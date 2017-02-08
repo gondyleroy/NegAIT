@@ -1,0 +1,32 @@
+Please mark with an asterisk (*) if the words below can be transformed in the following way: abnormal --> not normal (then you put an asterisk after abnormal*).
+
+-abaxial
+-abchalazal
+-abnerval
+-abneural
+-aboral
+-abporal
+-asexual* --> not sexual
+-abvolt (this is not a negative word)
+-disembedded
+-disfluency* --> not fluent (depending on context, this will need some rewording)
+-disincentivized* --> not incentivized
+-disincorporated* --> incorporation was removed
+-disinterest* --> lack of interest
+-disinvested* --> investment was removed
+-disinvigorated* --> not invigorated
+-dislike* --> do not like
+-disparented* --> parents were removed
+-disproportionable* --> not proportionable (or better not proportional)
+-illocality
+-immerit* --> without merit
+-imperception* --> without perception
+-impercipient
+-inaperturate (this is not a negative word)
+-inconfidence* --> no confidence
+-inverity* --> not true
+-inwheel 
+-unbeing --> not being
+-unfixt
+-unmyelinated
+-unprenylated
