@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -23,6 +22,10 @@ public class TextRead {
 	
 	// Make a List of Array lists to save all sentences in the document
 	static List<ArrayList<String>> documentList = new ArrayList<ArrayList<String>>();
+	static List<ArrayList<String>> annotatedList = new ArrayList<ArrayList<String>>();
+	static HashMap<String, String> acceptMap = null;
+	static HashMap<String, String>  discardMap = null;
+	
 	
 	public void parse (String filepath) throws IOException { 
 		
@@ -104,8 +107,6 @@ public class TextRead {
 		
 		// Vars for Accept and Discard map/lists
 		System.out.println("Annotating Negations...");
-		HashMap<String, String> acceptMap = null;
-		List<String> discardList = null;
 		
 		
 		// Subclass to read in the Accept and Discard Lexicons
@@ -163,9 +164,9 @@ public class TextRead {
 			}
 			
 			// Read in the Discard list
-			public List<String> readDiscard(String path){
+			public HashMap<String, String> readDiscard(String path){
 				
-				List<String> lexicon = new ArrayList<String>();
+				HashMap<String, String> lexicon = new HashMap<>();
 				String rawLine = null;
 				FileInputStream stream = null;
 				String derived = null;
@@ -182,7 +183,8 @@ public class TextRead {
 							String[] line = rawLine.split(",");
 							
 							derived = line[0].substring(1);
-							lexicon.add(derived);
+
+							lexicon.put(derived, "null");
 							
 							}
 
@@ -207,15 +209,18 @@ public class TextRead {
 			}
 		}
 		
-		// Calling the Lexicons 
+		// Calling all Lexicons 
 		Lexicon lexs = new Lexicon();
 		acceptMap = lexs.readAccept(acceptpath);
-		discardList = lexs.readDiscard(discardpath);
+		discardMap = lexs.readDiscard(discardpath);
 		
 		
 		// Read through sentences of Input File and Annotate
 		for (ArrayList<String> s : documentList){
-			Sentence sSent = new Sentence(s);
+			
+			// declare the sentence object and read in the negation
+			Sentence sent = new Sentence(s);
+			annotatedList.add(sent.morphNegate(acceptMap,discardMap));
 			
 			}
 		
@@ -237,7 +242,7 @@ public class TextRead {
 			bw = new BufferedWriter(fw);
 			
 
-			for (ArrayList<String> s : documentList){
+			for (ArrayList<String> s : annotatedList){
 				i += 1;
 				bw.write("Sentence " + Integer.toString(i) + ":");
 				bw.write("\n");
