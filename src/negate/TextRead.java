@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -16,15 +17,21 @@ import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.pipeline.*;
+
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
+import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.util.*;
+
 
 public class TextRead {
 	
 	// Make a List of Array lists to save all sentences in the document
 	static List<ArrayList<String>> documentList = new ArrayList<ArrayList<String>>();
 	static List<ArrayList<String>> annotatedList = new ArrayList<ArrayList<String>>();
-	static HashMap<String, String> acceptMap = null;
-	static HashMap<String, String>  discardMap = null;
+	static HashMap<String, String> morphAcceptMap = null;
+	static HashMap<String, String> morphDiscardMap = null;
 	
 	
 	public void parse (String filepath) throws IOException { 
@@ -46,6 +53,9 @@ public class TextRead {
 			props.setProperty("annotators", "tokenize, ssplit, pos, parse");
 			StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 			
+			// create short accept list for all sentence negations
+			ArrayList<String> negArray = new ArrayList<>(Arrays
+					.asList("no", "neither", "stop","none","not"));
 
 			// Parse lines and annotate using Core NLP
 			while ((rawLine = inBr.readLine()) != null) {
@@ -55,13 +65,34 @@ public class TextRead {
 				// run all the selected Annotators on this text
 				pipeline.annotate(antdLine);
 			    
-				List<CoreMap> coreSents = antdLine.get(CoreAnnotations.SentencesAnnotation.class);
+				List<CoreMap> coreSents = antdLine
+						.get(CoreAnnotations.SentencesAnnotation.class);
 			    
 				for(CoreMap coreSent : coreSents) {
 			    	
 					// Array list of strings for each sentence
 					ArrayList<String> sentenceArray = new ArrayList<String>();
+					
+					// create list for all sentence negations tagged by dependency parser
+					ArrayList<String> negDepArray = new ArrayList<>();
 
+					// this is the Stanford dependency graph of the current sentence
+					SemanticGraph graph = coreSent
+								.get(SemanticGraphCoreAnnotations.EnhancedDependenciesAnnotation.class);
+					
+					List<SemanticGraphEdge> edges = graph.edgeListSorted();
+						
+				    for (SemanticGraphEdge edge : edges) {
+				    
+						GrammaticalRelation relation = edge.getRelation();
+						
+						if (relation.getShortName() == "neg") {
+							String werd = edge.getDependent().word();
+							negDepArray.add(werd);				    	
+						}
+				    	
+				    }
+				    
 					for (CoreLabel coreToken: coreSent.get(TokensAnnotation.class)) {
 			    		
 						// get the text of the token
@@ -72,13 +103,16 @@ public class TextRead {
 			    		
 						// Add the word and pos
 						String token = word + "\t" + pos;
+						
+						// Add Sentential Negation Tag
+						if (negArray.contains(word) || negDepArray.contains(word)) {
+							token += "\t" + "SentNeg";
+						}
 			    		
 						// Add token to Sentence Array List
 						sentenceArray.add(token);
 					}
 
-					// this would be the parse tree of the current sentence, but we don't need it?
-					//Tree tree = coreSent.get(TreeAnnotation.class);
 					documentList.add(sentenceArray);
 				}
 			}
@@ -98,7 +132,6 @@ public class TextRead {
 
 				ex.printStackTrace();
 			}
-			
 		}
 	}
 	
@@ -108,111 +141,10 @@ public class TextRead {
 		// Vars for Accept and Discard map/lists
 		System.out.println("Annotating Negations...");
 		
-		
-		// Subclass to read in the Accept and Discard Lexicons
-		class Lexicon {
-			
-			// Read in the Accept Lexicon (Derived and Underived Forms)
-			public HashMap<String, String> readAccept(String path){
-				
-				HashMap<String, String> lexicon = new HashMap<>();
-				String rawLine = null;
-				FileInputStream stream = null;
-				BufferedReader inBr;
-				
-				try{
-					
-			        stream = new FileInputStream(path);
-					inBr = new BufferedReader(new InputStreamReader(stream));
-						
-						// Parse lines and add to Lexicon Hashmap
-						while ((rawLine = inBr.readLine()) != null) {
-							
-							// Split the Line by , to get the Derived, Underived Pair
-							String[] line = rawLine.split(",");
-							
-							if (line.length == 2){
-								
-								// Add them to Hashmap <derived, underived>
-								lexicon.put(line[0], line[1]);
-								
-							} else {
-								
-								// There are some typos, and this will tell us about them
-								System.out.println("The accept lexicon couldn't parse: " + rawLine  );
-								continue;
-							}
-						}
-
-				} catch (IOException e){
-					
-					e.printStackTrace();
-					
-			    } finally {
-			    	
-			    	try{
-			    		
-			    		if (stream != null)
-			    			stream.close();
-			    		
-			    	} catch (IOException ex){
-			    		
-						ex.printStackTrace();
-			    	}
-			    }
-				return lexicon;
-			}
-			
-			// Read in the Discard list
-			public HashMap<String, String> readDiscard(String path){
-				
-				HashMap<String, String> lexicon = new HashMap<>();
-				String rawLine = null;
-				FileInputStream stream = null;
-				String derived = null;
-				BufferedReader inBr;
-				
-				try{
-					
-			        stream = new FileInputStream(path);
-					inBr = new BufferedReader(new InputStreamReader(stream));
-						
-						// Parse lines and add to Lexicon List
-						while ((rawLine = inBr.readLine()) != null) {
-							
-							String[] line = rawLine.split(",");
-							
-							derived = line[0].substring(1);
-
-							lexicon.put(derived, "null");
-							
-							}
-
-				} catch (IOException e){
-					
-					e.printStackTrace();
-					
-			    } finally {
-			    	
-			    	try{
-			    		
-			    		if (stream != null)
-			    			stream.close();
-			    		
-			    	} catch (IOException ex){
-			    		
-						ex.printStackTrace();
-			    	}
-			    }
-				
-				return lexicon;
-			}
-		}
-		
 		// Calling all Lexicons 
 		Lexicon lexs = new Lexicon();
-		acceptMap = lexs.readAccept(acceptpath);
-		discardMap = lexs.readDiscard(discardpath);
+		morphAcceptMap = lexs.readIn(acceptpath, true);
+		morphDiscardMap = lexs.readIn(discardpath, false);
 		
 		
 		// Read through sentences of Input File and Annotate
@@ -220,12 +152,21 @@ public class TextRead {
 			
 			// declare the sentence object and read in the negation
 			Sentence sent = new Sentence(s);
-			annotatedList.add(sent.morphNegate(acceptMap,discardMap));
 			
-			}
-		
-		
-	}	
+			// do morphological negation
+			ArrayList<String> annotatedSent = sent.morphNegate(morphAcceptMap,morphDiscardMap);
+			
+			// do sentential negation
+			ArrayList<String> annotatedSent2 = sent.sentNegate(annotatedSent);
+			
+			// do double negation
+			ArrayList<String> annotatedSent3 = sent.doubleNegate(annotatedSent2);			
+			
+			// add the annotated list to the 
+			annotatedList.add(annotatedSent3);
+			
+			}	
+		}	
 	
 	public void xmlwrite(String filepath) {
 		

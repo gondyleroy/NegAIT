@@ -4,8 +4,10 @@ Syndrome	NN
 Aagenaes	NNP
 Syndrome	NN
 is	VBZ
+n't	RB	SentNeg	DoubleNeg
 a	DT
 syndrome	NN
+not	RB	SentNeg	DoubleNeg
 characterised	VBN
 by	IN
 congenital	JJ
@@ -50,7 +52,7 @@ The	DT
 genetic	JJ
 cause	NN
 is	VBZ
-unknown	JJ	MorphNegation
+unknown	JJ	MorphNeg
 ,	,
 but	CC
 it	PRP
@@ -85,7 +87,7 @@ anomaly	NN
 ,	,
 which	WDT
 may	MD
-not	RB
+not	RB	SentNeg
 be	VB
 indicative	JJ
 of	IN
@@ -102,7 +104,7 @@ Sentence 4:
 The	DT
 condition	NN
 is	VBZ
-n't	RB
+n't	RB	SentNeg
 particularly	RB
 frequent	JJ
 in	IN
