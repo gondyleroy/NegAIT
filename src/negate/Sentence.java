@@ -74,103 +74,73 @@ public class Sentence {
 	public ArrayList<String> doubleNegate(ArrayList<String> rSentence) {
 		
 		ArrayList<String> annotatedSent = new ArrayList<String>();
+		ArrayList<Integer> matchCandidate = new ArrayList<Integer>();
+		ArrayList<Integer> matchWindow = new ArrayList<Integer>();
+		
 		int Negcount;
 		
 		Negcount = 0;
 		
 		for (String candidate : rSentence){
 			
+			// get candidates who were tagged negative
 			String[] mainList = candidate.split("\t");
 			
+			// if they were tagged negative
 			if (mainList.length == 3){
 				
+				// get thier indeces
+				matchCandidate.add(rSentence.indexOf(candidate));
 				Negcount += 1;
-				
 			}
 		}
 		
+		// go through the matched indeces, and measure their distance
+		if (matchCandidate.size() > 1) {
+			for (int i = 1; i < matchCandidate.size(); i++) {
+				
+				int left = matchCandidate.get(i);
+				int right = matchCandidate.get(i-1);
+				
+				// if there are two matches in a 6 word window, add to window array
+				if (right-left < 7){
+					
+					matchWindow.add(right);
+					matchWindow.add(left);				
+				}
+			}
+		} 
+		
+		// go through all tokens in sentence
 		for (String candidate : rSentence){
 				
-			if (Negcount > 1){
+			int index = rSentence.indexOf(candidate);
+			
+			// get candidates who were tagged negative
+			String[] mainList = candidate.split("\t");
+			
+			// if they were tagged negative, and not yet tagged as Double
+			if (mainList.length == 3){
 				
-				String[] mainList = candidate.split("\t");
-				
-				if (mainList.length == 3){
+				// if they are real matches, tag them as double
+				if (matchWindow.contains(index)){
 					
 					candidate += "\tDoubleNeg";
 					annotatedSent.add(candidate);
 					
 				} else {
 					annotatedSent.add(candidate);
+					continue;
 				}
 					
 			} else {
+				
 				annotatedSent.add(candidate);
+				
 			}
 			
 		}
 		
-		
-		
-/*		for (int i = 0; i < rSentence.size()-6; i++) {
-
-			String mainCandidate = rSentence.get(i);
-			
-			String rightCandidate1 = rSentence.get(i+1);
-			String rightCandidate2 = rSentence.get(i+2);
-			String rightCandidate3 = rSentence.get(i+3);
-			String rightCandidate4 = rSentence.get(i+4);
-			String rightCandidate5 = rSentence.get(i+5);
-			String rightCandidate6 = rSentence.get(i+6);
-			
-			String[] mainList = mainCandidate.split("\t");
-			
-			String[] rightList1 = rightCandidate1.split("\t");
-			String[] rightList2 = rightCandidate2.split("\t");
-			String[] rightList3 = rightCandidate3.split("\t");
-			String[] rightList4 = rightCandidate4.split("\t");
-			String[] rightList5 = rightCandidate5.split("\t");
-			String[] rightList6 = rightCandidate6.split("\t");
-			
-			if (mainList.length == 3){
-				
-				if (rightList1.length == 3) {
-					
-					mainCandidate += "\tDoubleNeg";
-					rightCandidate1 += "\tDoubleNeg";
-					
-				} else if (rightList2.length == 3) {
-					
-					mainCandidate += "\tDoubleNeg";
-					rightCandidate2 += "\tDoubleNeg";
-					
-				} else if (rightList3.length == 3) {
-					
-					mainCandidate += "\tDoubleNeg";
-					rightCandidate3 += "\tDoubleNeg";
-					
-				} else if (rightList4.length == 3) {
-					
-					mainCandidate += "\tDoubleNeg";
-					rightCandidate4 += "\tDoubleNeg";
-					
-				} else if (rightList5.length == 3) {
-					
-					mainCandidate += "\tDoubleNeg";
-					rightCandidate5 += "\tDoubleNeg";
-					
-				} else if (rightList6.length == 3) {
-					
-					mainCandidate += "\tDoubleNeg";
-					rightCandidate6 += "\tDoubleNeg";
-					
-				}
-				
-			} 
-			
-			annotatedSent.add(mainCandidate);
-			
-		}*/
 		return annotatedSent;
 	}
 	

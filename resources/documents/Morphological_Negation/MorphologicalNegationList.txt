@@ -1,6 +1,6 @@
 abactinal,actinal
 abnormal,normal
-abocclusion,occlusion,medical,dental
+abocclusion,occlusion
 absonant,sound
 apolitical,political
 asexual,sexual
@@ -174,7 +174,7 @@ inabstinence,abstinence
 inacceptable,acceptable
 inaccordant,accordant
 inacquaintance,acquaintance
-inactivity,activity,-no, lack of
+inactivity,activity
 inadherent,adherent
 inadhesion,adhesion
 inadventurous,adventurous
@@ -203,9 +203,9 @@ inarticulate,articulate
 inarticulated,articulated
 inartificial,artificial
 inaudible,audible
-inbend
-inbind
-inblend
+inbend,bend
+inbind,bind
+inblend,blend
 incapable,capable
 incapacious,capacious
 incensurable,censurable
@@ -430,7 +430,7 @@ inoxidized,oxidized
 inoxidizing,oxidizing
 inperforable,perforable
 inreconcilable,reconcilable
-inrelate,
+inrelate,relate
 inremovability,removability
 insafety,safety
 insalubrious,salubrious
@@ -1106,16 +1106,16 @@ unboarded,boarded
 unboasted,boasted
 unboastful,boastful
 unboasting,boasting
-unbobbed
-unbody,bobbed
+unbobbed,bobbed
+unbody,body
 unbohemian,bohemian
 unboiled,boiled
 unboisterous,boisterous
 unbolded,bolded
 unbolstered,bolstered
 unbombable,bombable
-unbombastic
-unbombed,bombastic
+unbombastic,bombastic
+unbombed,bombed
 unbondable,bondable
 unbonded,bonded
 unbookable,bookable
@@ -1165,7 +1165,7 @@ unbrightened,brightened
 unbrilliant,brilliant
 unbrined,brined
 unbristled,bristled
-unBritish
+unBritish,british
 unbroachable,broachable
 unbroadcast,broadcast
 unbroadcastable,broadcastable
@@ -1283,7 +1283,7 @@ uncatchy,catchy
 uncategorical,categorical
 uncatered,catered
 uncathartic,cathartic
-uncatlikecatlike,
+uncatlike,catlike
 uncatty,catty
 uncaught,caught
 uncaulked,caulked
@@ -1861,8 +1861,8 @@ undemoted,demoted
 undenatured,denatured
 undeniable,deniable
 undenominational,denominational
-undenotable
-undenoted,denotable
+undenotable,denotable
+undenoted,denoted
 undenounced,denounced
 undensitized,densitized
 undentable,dentable
@@ -2931,7 +2931,7 @@ unhurtful,hurtful
 unhushable,hushable
 unhushed,hushed
 unhusk,husk
-unhybridized
+unhybridized,hybridized
 unhyphened,hyphened
 unhypnotic,hypnotic
 unhypnotised,hypnotised
@@ -3291,7 +3291,7 @@ unlogged,logged
 unlogic,logic
 unlonely,lonely
 unlooking,looking
-unloose
+unloose,loose
 unlooted,looted
 unlopped,lopped
 unlordly,lordly
@@ -3534,8 +3534,8 @@ unmussed,mussed
 unmustered,mussed
 unmutable,mutable
 unmutated,mutated
-unmutilated
-unmuzzle
+unmutilated,mutilated
+unmuzzle,muzzle
 unmystical,mystical
 unmystified,mystified
 unmythical,mythical
@@ -4486,7 +4486,7 @@ unrusty,rusty
 unrutted,rutted
 unsabotaged,sabotaged
 unsackable,sackable
-unsacred,,sacred
+unsacred,sacred
 unsacrificed,sacrificed
 unsacrificial,sacrificial
 unsadden,sadden
@@ -4567,7 +4567,7 @@ unsculpted,sculpted
 unscuppered,scuppered
 unscutched,scutched
 unscuttled,scuttled
-unscythed,,scythed
+unscythed,scythed
 unsealable,sealable
 unseamanlike,seamanlike
 unsearchable,searchable
@@ -4582,7 +4582,7 @@ unsecretive,secretive
 unsectionable,sectionable
 unsecular,secular
 unsecularized,secularized
-unsecure
+unsecure,secure
 unsecured,secured
 unsecuritized,securitized
 unsedated,sedated
@@ -4618,7 +4618,7 @@ unsepulchral,sepulchral
 unsepulchred,sepulchred
 unsequenced,sequenced
 unsequential,sequential
-unserenaded.serenaded
+unserenaded,serenaded
 unserene,serene
 unserged,serged
 unserialize,serialize
@@ -4652,7 +4652,7 @@ unshameable,shameable
 unshamed,shamed
 unshamefast,shamefast
 unshameful,shameful
-unshape,
+unshape,shape
 unshaped,shaped
 unshareable,shareable
 unsharpen,sharpen
@@ -5021,7 +5021,7 @@ unstraight,straight
 unstraightenable,straightenable
 unstraightened,straightened
 unstraightforward,straightforward
-unstrain*
+unstrain,strain
 unstrand,strand
 unstrange,strange
 unstrangled,strangled
@@ -5216,7 +5216,7 @@ untedious,tedious
 untelegenic,telegenic
 unteleported,teleported
 untelevisable,televisable
-untemperamentalmtemperamental
+untemperamental,temperamental
 untemperate,temperate
 untemplated,templated
 untemptable,temptable
@@ -5410,8 +5410,7 @@ untweakable,tweakable
 untweaked,tweaked
 untweetable,tweetable
 untweeted,tweeted
-untypable,
-untypablemtypable
+untypable,typable
 untypified,typified
 untyrannic,tyrannic
 untyrannical,tyrannical
@@ -5590,9 +5589,9 @@ unwheeled,wheeled
 unwhelped,whelped
 unwhimsical,whimsical
 unwhipt,0.unwhipt
-unwhirled
-unwhisked
-unwhiskered
+unwhirled,whirled
+unwhisked,whisked
+unwhiskered,whiskered
 unwhispered,hispered
 unwhistled,whistled
 unwhite,white
@@ -5680,7 +5679,7 @@ unwrung,wrung
 unxenophobic,xenophobic
 unyeaned,yeaned
 unyeasted,nyeasted
-unyellowed
+unyellowed,yellowed
 unyielded,yielded
 unyieldly,yieldly
 unzealous,zealous
