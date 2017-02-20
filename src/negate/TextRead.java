@@ -12,6 +12,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.text.html.parser.Element;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Node;
+
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
@@ -104,9 +117,11 @@ public class TextRead {
 						// Add the word and pos
 						String token = word + "\t" + pos;
 						
+						// This is being done out of place == how can we move it?
 						// Add Sentential Negation Tag
 						if (negArray.contains(word) || negDepArray.contains(word)) {
-							token += "\t" + "SentNeg";
+							token += "\t";
+							token += "sentneg";
 						}
 			    		
 						// Add token to Sentence Array List
@@ -168,51 +183,78 @@ public class TextRead {
 			}	
 		}	
 	
-	public void xmlwrite(String filepath) {
+	public void xmlwrite(String filepath) throws ParserConfigurationException, TransformerException {
 		
 		System.out.println("Writing Annotations...");
 		
 		// Convert Annotations to XML and write out
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-		int i = 0;
+	    DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder icBuilder;
 		
-		try{
-
-			fw = new FileWriter(filepath);
-			bw = new BufferedWriter(fw);
+		// build Doc for XML output
+		icBuilder = icFactory.newDocumentBuilder();
+		org.w3c.dom.Document doc = icBuilder.newDocument();
+		org.w3c.dom.Element mainRootElement = doc.createElement("document");
+		doc.appendChild(mainRootElement);
+		
+		
+		for (ArrayList<String> s : annotatedList){
 			
-
-			for (ArrayList<String> s : annotatedList){
-				i += 1;
-				bw.write("Sentence " + Integer.toString(i) + ":");
-				bw.write("\n");
-				for (String t : s){
-					bw.write(t);
-					bw.write("\n");
+			org.w3c.dom.Element sentence = doc.createElement("sentence");
+			
+			String newS = " ";
+			Boolean doubleNeg = false;
+			
+			for (String t : s){
+					
+				String[] tokList = t.split("\t");			
+				int l = tokList.length;
+				
+				if (l == 4){
+				
+					doubleNeg = true;
 				}
-				bw.write("\n");
-				bw.write("\n");
+				
+				if (l > 2){
+					
+					// add in the negation types
+					
+					if (tokList[2].equals("sentneg") || tokList[2].equals("morphneg")){
+						
+						// add the previous newS to the node
+						Node node = doc.createTextNode(newS);
+						sentence.appendChild(node);
+						
+						// Create Node element for negation
+						org.w3c.dom.Element sentneg = doc.createElement(tokList[2]);
+						Node negnode = doc.createTextNode(" " + tokList[0] + " ");
+						sentneg.appendChild(negnode);
+						sentence.appendChild(sentneg);
+						
+						// Make it so the newS is something new!
+
+						
+					}
+				}
+				
+				// declare the token
+				newS += tokList[0];
+				newS += " ";
 			}
-		
-		} catch (IOException e) {
 			
-			e.printStackTrace();
-			
-		} finally {
-
-			try {
-
-				if (bw != null)
-					bw.close();
-
-				if (fw != null)
-					fw.close();
-
-			} catch (IOException ex) {
-
-				ex.printStackTrace();
-			}
+			sentence.setAttribute("doublenegation", doubleNeg.toString());
+			Node node = doc.createTextNode(newS);
+			sentence.appendChild(node);
+			mainRootElement.appendChild(sentence);
 		}
+		
+		// output DOM XML to console 
+		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
+		DOMSource source = new DOMSource(doc);
+		StreamResult console = new StreamResult(System.out);
+		transformer.transform(source, console);
+ 
+		System.out.println("\nXML DOM Created Successfully..");
 	}
 }

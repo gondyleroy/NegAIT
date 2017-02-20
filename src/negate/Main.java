@@ -2,6 +2,9 @@ package negate;
 
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 public class Main {
 	
 	static String articlepath;
@@ -9,7 +12,7 @@ public class Main {
 	static String discardpath;	
 	static String outpath;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParserConfigurationException, TransformerException {
 		
 		// get dir
 		String dir = System.getProperty("user.dir");

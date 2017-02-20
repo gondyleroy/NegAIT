@@ -27,7 +27,8 @@ public class Sentence {
 		    		
 		    	} else { 
 		    		
-		    		candidate += "\tMorphNeg";
+		    		candidate += "\t";
+		    		candidate += "morphneg";
 		    		annotatedSent.add(candidate);
 		    	}
 		    	
@@ -76,10 +77,8 @@ public class Sentence {
 		ArrayList<String> annotatedSent = new ArrayList<String>();
 		ArrayList<Integer> matchCandidate = new ArrayList<Integer>();
 		ArrayList<Integer> matchWindow = new ArrayList<Integer>();
-		
-		int Negcount;
-		
-		Negcount = 0;
+
+		int Negcount = 0;
 		
 		for (String candidate : rSentence){
 			
