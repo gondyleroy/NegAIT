@@ -77,8 +77,6 @@ public class Sentence {
 		ArrayList<String> annotatedSent = new ArrayList<String>();
 		ArrayList<Integer> matchCandidate = new ArrayList<Integer>();
 		ArrayList<Integer> matchWindow = new ArrayList<Integer>();
-
-		int Negcount = 0;
 		
 		for (String candidate : rSentence){
 			
@@ -90,7 +88,6 @@ public class Sentence {
 				
 				// get thier indeces
 				matchCandidate.add(rSentence.indexOf(candidate));
-				Negcount += 1;
 			}
 		}
 		

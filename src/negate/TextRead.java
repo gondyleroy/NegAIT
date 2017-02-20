@@ -1,9 +1,7 @@
 package negate;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -12,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
-import javax.swing.text.html.parser.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -202,7 +199,7 @@ public class TextRead {
 			
 			org.w3c.dom.Element sentence = doc.createElement("sentence");
 			
-			String newS = " ";
+			String newS = new String();
 			Boolean doubleNeg = false;
 			
 			for (String t : s){
@@ -232,14 +229,17 @@ public class TextRead {
 						sentence.appendChild(sentneg);
 						
 						// Make it so the newS is something new!
+						newS = " ";
 
 						
 					}
-				}
+				} else {
 				
 				// declare the token
-				newS += tokList[0];
 				newS += " ";
+				newS += tokList[0];
+				
+				}
 			}
 			
 			sentence.setAttribute("doublenegation", doubleNeg.toString());
@@ -252,7 +252,7 @@ public class TextRead {
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
 		DOMSource source = new DOMSource(doc);
-		StreamResult console = new StreamResult(System.out);
+		StreamResult console = new StreamResult(filepath);
 		transformer.transform(source, console);
  
 		System.out.println("\nXML DOM Created Successfully..");

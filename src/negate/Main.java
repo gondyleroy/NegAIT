@@ -21,7 +21,7 @@ public class Main {
 		articlepath = dir + "/resources/documents/AagenaesSyndrome.txt";
 		acceptpath = dir + "/resources/documents/Morphological_Negation/MorphologicalNegationList.txt";
 		discardpath = dir + "/resources/documents/Morphological_Negation/ExemptionsToMorphologicalNegationList.txt";
-		outpath = dir + "/resources/documents/Output.txt";
+		outpath = dir + "/resources/documents/Output.xml";
 		
 		// initialize Text Read Object
 		TextRead text = new TextRead();
