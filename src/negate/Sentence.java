@@ -95,8 +95,8 @@ public class Sentence {
 		if (matchCandidate.size() > 1) {
 			for (int i = 1; i < matchCandidate.size(); i++) {
 				
-				int left = matchCandidate.get(i);
-				int right = matchCandidate.get(i-1);
+				int right = matchCandidate.get(i);
+				int left = matchCandidate.get(i-1);
 				
 				// if there are two matches in a 6 word window, add to window array
 				if (right-left < 7){

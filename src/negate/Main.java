@@ -18,10 +18,10 @@ public class Main {
 		String dir = System.getProperty("user.dir");
 		
 		// declare paths
-		articlepath = dir + "/resources/documents/AagenaesSyndrome.txt";
+		articlepath = dir + "/resources/documents/goldstandard.txt";
 		acceptpath = dir + "/resources/documents/Morphological_Negation/MorphologicalNegationList.txt";
 		discardpath = dir + "/resources/documents/Morphological_Negation/ExemptionsToMorphologicalNegationList.txt";
-		outpath = dir + "/resources/documents/Output.xml";
+		outpath = dir + "/resources/documents/GSOutput.xml";
 		
 		// initialize Text Read Object
 		TextRead text = new TextRead();

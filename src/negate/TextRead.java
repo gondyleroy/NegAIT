@@ -255,6 +255,6 @@ public class TextRead {
 		StreamResult console = new StreamResult(filepath);
 		transformer.transform(source, console);
  
-		System.out.println("\nXML DOM Created Successfully..");
+		System.out.println("\nXML Output Created Successfully..");
 	}
 }
