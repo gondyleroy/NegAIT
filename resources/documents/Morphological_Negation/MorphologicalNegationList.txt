@@ -5685,3 +5685,9 @@ unyieldly,yieldly
 unzealous,zealous
 unzippable,zippable
 unzoned,zoned
+unviable,viable
+infrequently,frequently
+unusual,usual
+unnamed,named
+assexually,sexually
+incompatible,compatible

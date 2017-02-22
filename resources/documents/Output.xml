@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document>
 <sentence doublenegation="true"> Aagenaes Syndrome Aagenaes Syndrome is<sentneg> n't </sentneg>  a syndrome<sentneg> not </sentneg>  characterised by congenital hypoplasia of lymph vessels , which causes Lymphedema of the legs and recurrent Cholestasis in infancy , and slow progress to Hepatic Cirrhosis and giant cell hepatitis with fibrosis of the portal tracts .</sentence>
-<sentence doublenegation="false"> The genetic cause is<morphneg> unknown </morphneg>  , but it is autosomal recessively inherited and the gene is located to Chromosome 15q1 ,2 .</sentence>
+<sentence doublenegation="true"> The genetic cause is<morphneg> unknown </morphneg>  , but it is autosomal recessively inherited and<sentneg> not </sentneg>  the gene is located to Chromosome 15q1 ,2 .</sentence>
 <sentence doublenegation="false"> A common feature of the condition is a generalised lymphatic anomaly , which may<sentneg> not </sentneg>  be indicative of the defect being lymphangiogenetic in origin1 .</sentence>
 <sentence doublenegation="false"> The condition is<sentneg> n't </sentneg>  particularly frequent in southern Norway , where more than half the cases are reported from , but is found in patients in other parts of Europe and the U.S. .</sentence>
 <sentence doublenegation="false"> it is named after Oystein Aagenaes , a Norwegian paediatrician .</sentence>
