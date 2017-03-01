@@ -114,7 +114,7 @@ public class TextRead {
 						// Add the word and pos
 						String token = word + "\t" + pos;
 						
-						// This is being done out of place == how can we move it?
+						// This is being done out of place, How can we move it?
 						// Add Sentential Negation Tag
 						if (negArray.contains(word) || negDepArray.contains(word)) {
 							token += "\t";
@@ -230,7 +230,6 @@ public class TextRead {
 						
 						// Make it so the newS is something new!
 						newS = " ";
-
 						
 					}
 				} else {
@@ -254,7 +253,5 @@ public class TextRead {
 		DOMSource source = new DOMSource(doc);
 		StreamResult console = new StreamResult(filepath);
 		transformer.transform(source, console);
- 
-		System.out.println("\nXML Output Created Successfully..");
 	}
 }

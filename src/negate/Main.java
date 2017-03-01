@@ -19,9 +19,9 @@ public class Main {
 		
 		// declare paths
 		articlepath = dir + "/resources/documents/goldstandard.txt";
-		acceptpath = dir + "/resources/documents/Morphological_Negation/MorphologicalNegationList.txt";
+		acceptpath = dir + "/resources/documents/Morphological_Negation/PorterMorphologicalNegationList.txt";
 		discardpath = dir + "/resources/documents/Morphological_Negation/ExemptionsToMorphologicalNegationList.txt";
-		outpath = dir + "/resources/documents/GSOutput.xml";
+		outpath = dir + "/resources/documents/GSOutput2.xml";
 		
 		// initialize Text Read Object
 		TextRead text = new TextRead();

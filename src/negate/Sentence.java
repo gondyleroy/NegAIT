@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class Sentence {
 	
 	private ArrayList<String> rawSent;
+	private	Stemmer Pstem = new Stemmer();
 	
 	Sentence (ArrayList<String> inSent){
 		this.rawSent =inSent;
@@ -17,8 +18,12 @@ public class Sentence {
 		ArrayList<String> annotatedSent = new ArrayList<String>();
 
 		for (String candidate : this.rawSent){
+			
 			token = candidate.split("\t")[0];
-		    if (acceptMap.containsKey(token)) {
+			
+			String stem = Pstem.stem(token);
+			
+		    if (acceptMap.containsKey(stem)) {
 		    	
 		    	if (discardMap.containsKey(token)) {
 		    		
