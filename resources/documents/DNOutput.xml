@@ -22,12 +22,12 @@
 <sentence doublenegation="true"> After the nose job , she did<sentneg> n't </sentneg>  want<sentneg> no </sentneg>  one to see her .</sentence>
 <sentence doublenegation="true"> The star could<sentneg> n't </sentneg>  sing<sentneg> no </sentneg>  more after the matinee performance .</sentence>
 <sentence doublenegation="false"> The evidence is certainly<sentneg> not </sentneg>  irrefutable .</sentence>
-<sentence doublenegation="false"> This gem is<sentneg> not </sentneg>  uncommon .</sentence>
+<sentence doublenegation="true"> This gem is<sentneg> not </sentneg> <morphneg> uncommon </morphneg>  .</sentence>
 <sentence doublenegation="false"> The results are<sentneg> not </sentneg>  inconclusive .</sentence>
-<sentence doublenegation="false"> His rebuttal was clearly<sentneg> not </sentneg>  nonsensical .</sentence>
+<sentence doublenegation="true"> His rebuttal was clearly<sentneg> not </sentneg> <morphneg> nonsensical </morphneg>  .</sentence>
 <sentence doublenegation="true"> The price of the car is<sentneg> not </sentneg> <morphneg> insignificant </morphneg>  .</sentence>
 <sentence doublenegation="true"> It is<sentneg> not </sentneg> <morphneg> unnecessary </morphneg>  to tell the truth all the time .</sentence>
-<sentence doublenegation="false"> The new disease was<sentneg> n't </sentneg>  non-infectious .</sentence>
+<sentence doublenegation="true"> The new disease was<sentneg> n't </sentneg> <morphneg> non-infectious </morphneg>  .</sentence>
 <sentence doublenegation="true"> He was<sentneg> n't </sentneg> <morphneg> irresponsible </morphneg>  about his duties .</sentence>
 <sentence doublenegation="false"> I ca<sentneg> n't </sentneg>  barely see where I am going in this fog .</sentence>
 <sentence doublenegation="false"> She did<sentneg> not </sentneg>  barely understand the instructions .</sentence>
@@ -61,7 +61,7 @@
 <sentence doublenegation="false"> I do<sentneg> n't </sentneg>  know nothing about a robbery .</sentence>
 <sentence doublenegation="false"> I suppose that is<sentneg> not </sentneg>  impossible .</sentence>
 <sentence doublenegation="false"> However , it seems far fetched</sentence>
-<sentence doublenegation="true">
+<sentence doublenegation="false">
 <sentneg> Never </sentneg>  a day goes by that I do<sentneg> not </sentneg>  miss her .</sentence>
 <sentence doublenegation="true"> It 's<sentneg> not </sentneg>  that I did<sentneg> n't </sentneg>  enjoy it</sentence>
 <sentence doublenegation="false"> I 'm<sentneg> not </sentneg>  unhappy/dishonest .</sentence>
@@ -74,5 +74,5 @@
 <sentneg> Not </sentneg>  every day am I<sentneg> not </sentneg>  allowed to<sentneg> not </sentneg>  eat my breakfast in peace .</sentence>
 <sentence doublenegation="false"> Rarely am I<sentneg> not </sentneg>  eating my breakfast in peace .</sentence>
 <sentence doublenegation="true"> I ai<sentneg> n't </sentneg> <sentneg> never </sentneg>  done nothing to nobody , and I ai<sentneg> n't </sentneg> <sentneg> never </sentneg>  got nothing from nobody<sentneg> no </sentneg>  time</sentence>
-<sentence doublenegation="true"> I<sentneg> never </sentneg>  did anything to a person , and I will<sentneg> not </sentneg>  get anything from a person at any time</sentence>
+<sentence doublenegation="false"> I<sentneg> never </sentneg>  did anything to a person , and I will<sentneg> not </sentneg>  get anything from a person at any time</sentence>
 </document>

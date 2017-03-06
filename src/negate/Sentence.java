@@ -21,25 +21,32 @@ public class Sentence {
 			
 			token = candidate.split("\t")[0];
 			
-			String stem = Pstem.stem(token);
+			String stem = Pstem.stem(token).toLowerCase();
 			
-		    if (acceptMap.containsKey(stem)) {
+			if (stem.startsWith("non")) {
+				
+    			candidate += "\t";
+    			candidate += "morphneg";
+    			annotatedSent.add(candidate);
+    			
+			} else {
+			
+				if (acceptMap.containsKey(stem)) {
 		    	
-		    	if (discardMap.containsKey(token)) {
+					if (discardMap.containsKey(token)) {
+		    			
+						annotatedSent.add(candidate);
+						continue;
 		    		
-		    		annotatedSent.add(candidate);
-		    		continue;
+					} else { 
 		    		
-		    	} else { 
-		    		
-		    		candidate += "\t";
-		    		candidate += "morphneg";
-		    		annotatedSent.add(candidate);
-		    	}
-		    	
-		    } else {
-		    	annotatedSent.add(candidate);
-		    	continue;
+						candidate += "\t";
+						candidate += "morphneg";
+					}
+				}
+
+		    annotatedSent.add(candidate);
+		    continue;
 		    
 		    }
 		    
@@ -82,6 +89,7 @@ public class Sentence {
 		ArrayList<String> annotatedSent = new ArrayList<String>();
 		ArrayList<Integer> matchCandidate = new ArrayList<Integer>();
 		ArrayList<Integer> matchWindow = new ArrayList<Integer>();
+		int Dneg = 0;
 		
 		for (String candidate : rSentence){
 			
@@ -91,23 +99,44 @@ public class Sentence {
 			// if they were tagged negative
 			if (mainList.length == 3){
 				
+				if (mainList[2].equals("morphneg")){
+					
+					Dneg += 1;
+				}
+				
+				if (mainList[2].equals("sentneg")){
+					
+					Dneg += 2;
+				}
+			}
+		}
+		
+		for (String candidate : rSentence){
+			
+			// get candidates who were tagged negative
+			String[] mainList = candidate.split("\t");
+			
+			
+			// if they were tagged negative
+			if (mainList.length == 3){
+				
 				// get thier indeces
 				matchCandidate.add(rSentence.indexOf(candidate));
 			}
 		}
-		
 		// go through the matched indeces, and measure their distance
 		if (matchCandidate.size() > 1) {
 			for (int i = 1; i < matchCandidate.size(); i++) {
 				
 				int right = matchCandidate.get(i);
 				int left = matchCandidate.get(i-1);
-				
+
 				// if there are two matches in a 6 word window, add to window array
-				if (right-left < 7){
+				if (right-left < 7 && right-left > 0){
 					
 					matchWindow.add(right);
-					matchWindow.add(left);				
+					matchWindow.add(left);		
+					
 				}
 			}
 		} 
@@ -126,7 +155,9 @@ public class Sentence {
 				// if they are real matches, tag them as double
 				if (matchWindow.contains(index)){
 					
-					candidate += "\tDoubleNeg";
+					if (Dneg > 2){
+						candidate += "\tDoubleNeg";
+					}
 					annotatedSent.add(candidate);
 					
 				} else {

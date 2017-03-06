@@ -1,6 +1,6 @@
 abactin,actin
 abnorm,normal
-abocclus,occlus,medic,dental
+abocclus,occlus
 abson,sound
 apolit,polit
 asexu,sexual
@@ -177,7 +177,7 @@ inabstin,abstin
 inaccept,accept
 inaccord,accord
 inacquaint,acquaint
-inact,activ,-no, lack of
+inact,activ
 inadequ,adequ
 inadher,adher
 inadhes,adhes
@@ -209,9 +209,9 @@ inarticul,articul
 inarticul,articul
 inartifici,artifici
 inaud,audibl
-inbend
-inbind
-inblend
+inbend,bend
+inbind,bind
+inblend,blend
 incap,capabl
 incapaci,capaci
 incensur,censur
@@ -437,7 +437,7 @@ inoxid,oxid
 inoxid,oxid
 inperfor,perfor
 inreconcil,reconcil
-inrel,
+inrel,rel
 inremov,remov
 insafeti,safeti
 insalubri,salubri
@@ -1114,16 +1114,16 @@ unboard,board
 unboast,boast
 unboast,boast
 unboast,boast
-unbob
-unbodi,bob
+unbob,bob
+unbodi,bodi
 unbohemian,bohemian
 unboil,boil
 unboister,boister
 unbold,bold
 unbolst,bolster
 unbomb,bombabl
-unbombast
-unbomb,bombast
+unbombast,bombast
+unbomb,bomb
 unbond,bondabl
 unbond,bond
 unbook,bookabl
@@ -1173,7 +1173,7 @@ unbrighten,brighten
 unbrilli,brilliant
 unbrin,brine
 unbristl,bristl
-unbritish
+unbritish,british
 unbroach,broachabl
 unbroadcast,broadcast
 unbroadcast,broadcast
@@ -1291,7 +1291,7 @@ uncatchi,catchi
 uncategor,categor
 uncat,cater
 uncathart,cathart
-uncatlikecatlik,
+uncatlike,catlik
 uncatti,catti
 uncaught,caught
 uncaulk,caulk

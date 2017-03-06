@@ -65,7 +65,7 @@ public class TextRead {
 			
 			// create short accept list for all sentence negations
 			ArrayList<String> negArray = new ArrayList<>(Arrays
-					.asList("no", "neither", "stop","none","not"));
+					.asList("no", "neither", "stop","stops","none","not"));
 
 			// Parse lines and annotate using Core NLP
 			while ((rawLine = inBr.readLine()) != null) {
@@ -193,10 +193,10 @@ public class TextRead {
 		org.w3c.dom.Document doc = icBuilder.newDocument();
 		org.w3c.dom.Element mainRootElement = doc.createElement("document");
 		doc.appendChild(mainRootElement);
-		
+
 		
 		for (ArrayList<String> s : annotatedList){
-			
+
 			org.w3c.dom.Element sentence = doc.createElement("sentence");
 			
 			String newS = new String();
