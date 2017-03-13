@@ -13,7 +13,7 @@ public class Sentence {
 	
 	//Raw Core Map
 	public Sentence(CoreMap coreSent){
-		s = coreSent;w
+		s = coreSent;
 	}
 	
 	// Get the String
