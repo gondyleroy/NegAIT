@@ -2,7 +2,6 @@ package negate;
 
 public interface Annotator {
 	
-	//methods
+	public void annotate(Sentence s);
 	
-	//annotate(Sentence S)
 }

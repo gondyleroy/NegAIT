@@ -64,7 +64,9 @@ public class Lexicon {
 					ex.printStackTrace();
 		    	}
 		}
+		
 	return lexicon;
+	
 	}
 }
 
