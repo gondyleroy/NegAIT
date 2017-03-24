@@ -26,7 +26,6 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
 public class TextRead {
-	
 	public TextRead(String filepath) throws IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException { 
 		
 		// Declare Instance Variables
@@ -95,18 +94,13 @@ public class TextRead {
 			DOMSource source = new DOMSource(doc);
 			StreamResult console = new StreamResult("resources/documents/goldstandardpretty.xml");
 			transformer.transform(source, console);
-			
 		} catch (IOException e) {
-				
 			e.printStackTrace();				
-				
 		} finally {
-				
 			try {
-			
-				if (inStream != null)
+				if (inStream != null){
 					inStream.close();
-					
+				}
 		    } catch (IOException ex) {
 
 				ex.printStackTrace();
