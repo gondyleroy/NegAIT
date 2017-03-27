@@ -18,8 +18,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Element;
-
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -81,8 +79,8 @@ public class TextRead {
 			    		sn.annotate(s);
 			    		dn.annotate(s);
 			    		
-			    		Element xmlS = s.toXML(doc);
-			    		mainRootElement.appendChild(xmlS);
+			    		//Write to XML
+			    		mainRootElement.appendChild(s.toXML(doc));
 			    		
 			    }
 
@@ -92,7 +90,7 @@ public class TextRead {
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
 			DOMSource source = new DOMSource(doc);
-			StreamResult console = new StreamResult("resources/documents/goldstandardpretty.xml");
+			StreamResult console = new StreamResult("resources/documents/goldstandardpretty2.xml");
 			transformer.transform(source, console);
 		} catch (IOException e) {
 			e.printStackTrace();				
