@@ -29,7 +29,6 @@ public class Lexicon {
 						lexicon.put(line[0], line[1]);
 					} else {
 						// There are some typos, and this will tell us about them
-						System.out.println("The accept lexicon couldn't parse: " + rawLine  );
 						continue;
 					}
 				} else {

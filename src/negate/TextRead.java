@@ -1,9 +1,13 @@
 package negate;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.security.CodeSource;
 import java.util.List;
 import java.util.Properties;
 
@@ -24,7 +28,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
 public class TextRead {
-	public TextRead(String filepath) throws IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException { 
+	public TextRead(String filepath) throws IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException, URISyntaxException { 
 		
 		// Declare Instance Variables
 		BufferedReader inBr;
@@ -90,7 +94,11 @@ public class TextRead {
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
 			DOMSource source = new DOMSource(doc);
-			StreamResult console = new StreamResult("resources/documents/goldstandardpretty2.xml");
+			CodeSource codeSource = main.class.getProtectionDomain().getCodeSource();
+			File jarFile = new File(codeSource.getLocation().toURI().getPath());
+			String jarDir = jarFile.getParentFile().getPath();
+			//String decodedPath = URLDecoder.decode(path, "UTF-8");
+			StreamResult console = new StreamResult(jarDir + "Output.xml");
 			transformer.transform(source, console);
 		} catch (IOException e) {
 			e.printStackTrace();				
