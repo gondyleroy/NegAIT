@@ -7,8 +7,8 @@ public class MorphNegationAnnotator implements Annotator {
 	private	Stemmer porterStemmer = new Stemmer();
 	
 	// Declare Relative Paths for Reject/Accept Maps
-	private String acceptPath = "src/Accept.txt";
-	private String rejectPath = "src/Reject.txt";
+	private String acceptPath = "negate/lexicons/Accept.txt";
+	private String rejectPath = "negate/lexicons/Reject.txt";
 
 	// Declare Maps themselves
 	private HashMap<String, String> acceptMap = new HashMap<String, String>();

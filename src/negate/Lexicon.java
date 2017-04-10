@@ -1,8 +1,8 @@
 package negate;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
@@ -11,11 +11,11 @@ public class Lexicon {
 	public static HashMap<String, String> read(String path, Boolean accept){
 		HashMap<String, String> lexicon = new HashMap<String,String>();
 		String rawLine = null;
-		FileInputStream stream = null;
+		InputStream stream = null;
 		BufferedReader inBr;
 
 		try{
-			stream = new FileInputStream(path);
+			stream = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
 			inBr = new BufferedReader(new InputStreamReader(stream));
 
 			// Parse lines and add to Lexicon Hashmap
