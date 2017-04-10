@@ -11,10 +11,18 @@ public class NegationParser {
 	
 		public static void main (String[] args) throws IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException, URISyntaxException {	
 			// Call Text Read
-			TextRead text = new TextRead(args[0],args[1]);
 			
-			// Print Done!
-			System.out.println("Done!!!");
-		} 
 
+			if( args.length != 2 ){
+				// print out some message about usage
+				System.out.println("You havent specified the correct number of files!");
+			}else{
+				// do whatever you need to do
+				TextRead text = new TextRead(args[0],args[1]);
+			
+				// Print Done!
+				System.out.println("Finished Parsing!");
+			
+			}
+		} 
 }
