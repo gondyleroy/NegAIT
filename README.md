@@ -4,9 +4,8 @@ This application annotates English Text for Sentential, Morphological, and Doubl
 
 ## Running the Code
 
-- Mac/Unix/Windows:
+java -cp negate.jar:path-to-stanford-corenlp-3.7.0.jar:path-to-stanford-corenlp-3.7.0-models.jar negate.NegationParser path-to-input-file path-to-new-output-file
 
-	user$ java -jar path-to-negate.jar path-to-file path-to-outfile+name:
-	
-	e.g. java -jar negate.jar AagenaesSyndrome.txt AagenaesSyndromeNegate
-	
+	e.g. java -cp negate.jar:/Users/pokea...stanford-corenlp-full-2016-10-31/stanford-corenlp-	
+	3.7.0.jar:/Users/pokea.../stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0-models.jar negate.NegationParser 
+	AagenaesSyndrome.txt AagenaesSyndromeNegation
