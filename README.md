@@ -28,3 +28,19 @@ E:\dir>java -cp negate.jar;path-to-stanford-corenlp-3.7.0.jar;path-to-stanford-c
 ## Results
 
 The application will return an annoted xml file which flags morphological, sentential, and double negation in the original text file.
+
+### Sample Input
+
+	Aagenaes Syndrome Aagenaes Syndrome isn't a syndrome not characterised by congenital hypoplasia of lymph vessels, which does not cause Lymphedema of the legs and recurrent Cholestasis in infancy, and slow progress to Hepatic Cirrhosis and giant cell hepatitis with fibrosis of the portal tracts. The genetic cause is unknown, but it is autosomal recessively inherited and not the gene is unkown and located to Chromosome 15q1,2. A common feature of the condition is a generalised lymphatic anomaly, which may not be indicative of the defect being lymphangiogenetic in origin1. The condition isn't particularly frequent in southern Norway, where more than half the cases are not reported from, but is found in patients in other parts of Europe and the U.S.. It is named after Oystein Aagenaes, a Norwegian paediatrician.
+	
+### Sample Output
+
+	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<document>
+	<sentence doublenegation="true"> Aagenaes Syndrome Aagenaes Syndrome is<sentneg>n't</sentneg>  a syndrome<sentneg>not</sentneg>  characterised by congenital hypoplasia of lymph vessels , which does<sentneg>not</sentneg>  cause Lymphedema of the legs and recurrent Cholestasis in infancy , and slow progress to Hepatic Cirrhosis and giant cell hepatitis with fibrosis of the portal tracts .</sentence>
+	<sentence> The genetic cause is<morphneg>unknown</morphneg>  , but it is autosomal recessively inherited and<sentneg>not</sentneg>  the gene is unkown and located to Chromosome 15q1 ,2 .</sentence>
+	<sentence> A common feature of the condition is a generalised lymphatic anomaly , which may<sentneg>not</sentneg>  be indicative of the defect being lymphangiogenetic in origin1 .</sentence>
+	<sentence> The condition is<sentneg>n't</sentneg>  particularly frequent in southern Norway , where more than half the cases are<sentneg>not</sentneg>  reported from , but is found in patients in other parts of Europe and the U.S. .</sentence>
+	<sentence> It is named after Oystein Aagenaes , a Norwegian paediatrician .</sentence>
+	</document>
+	
